@@ -1,6 +1,6 @@
 $(function () {
   $("#addRes1").click(loadRecipe);
-  $("#addRess").click(get1);
+  $("#addRes2").click(get1);
   $(document).on("click", "#del", handleDelete);
   $("#del").click(handleDelete);
   $(document).on("click", "#edit", handleUpdate);
@@ -58,7 +58,12 @@ function loadRecipe() {
 }
 
 function get1() {
+  console.log("hello");
   var id = $("#search").val();
+  if (!id) {
+    $("#search").addClass("error");
+    return;
+  }
   if (id.length !== 0) {
     $.get("https://jsonplaceholder.typicode.com/todos/" + id, function (res) {
       var recipes = $("#recipes");
@@ -99,11 +104,9 @@ function get1() {
                   </div>`
         );
       }
-
-      $(".btn-danger").on("click", deleteHotel);
-      $(".btn-warning").on("click", updateHotel);
     });
   }
+  $("#search").removeClass("error");
 }
 
 function handleDelete() {
