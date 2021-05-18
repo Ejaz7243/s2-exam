@@ -58,7 +58,6 @@ function loadRecipe() {
 }
 
 function get1() {
-  console.log("hello");
   var id = $("#search").val();
   if (!id) {
     $("#search").addClass("error");
@@ -132,7 +131,7 @@ function addRecipe() {
   var color = $("#color").val();
   var department = $("#department").val();
   var description = $("#description").val();
-  console.log(title, body);
+  // console.log(title, body);
   $.ajax({
     url: "https://usman-recipes.herokuapp.com/api/products",
     method: "POST",
