@@ -58,21 +58,25 @@ function loadRecipe() {
 }
 
 function get1() {
+  console.log("hello");
   var id = $("#search").val();
   if (!id) {
     $("#search").addClass("error");
     return;
   }
-  if (id.length !== 0) {
-    $.get("https://jsonplaceholder.typicode.com/todos/" + id, function (res) {
+  $.ajax({
+    url: "https://usman-recipes.herokuapp.com/api/products",
+    method: "GET",
+    success: function (res) {
       var recipes = $("#recipes");
       recipes.empty();
-      if (res.length !== 0) {
-        recipes.append(
-          `<div id="abc" class="card deco ml-4 mb-4" style="max-width: 20rem;">
-                    <h3>${rec.name}</h3>
+
+      recipes.addClass("cent p-3 m-2 ");
+      recipes.append(
+        `<div id="abc" class="card deco ml-4 mb-4" style="max-width: 20rem;">
+                    <h3>${res.name}</h3>
                     <div class="card-body text-primary">
-                        <p class="card-text">${rec.description}</p>
+                        <p class="card-text">${res.description}</p>
                         <div class="row pt-3 pb-2 m-2 bbb ">
                           <div class="col-sm  hh">
                             Price
@@ -86,25 +90,25 @@ function get1() {
                         </div>
                         <div class="row p-1 m-2 ">
                             <div class="col-sm  nu">
-                            RS. ${rec.price}
+                            RS. ${res.price}
                             </div>
                             <div class="col-sm  nu">
-                            ${rec.color}
+                            ${res.color}
                             </div>
                             <div class="col-sm  nu">
-                            ${rec.department}
+                            ${res.department}
                             </div>
                           </div>
                     </div>
-                    <div class="ft "data-id="${rec._id}">
+                    <div class="ft "data-id="${res._id}">
                     <button id="edit"  class="btn btn-warning btn-sm float-left"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit</button>
                     <button id="del"  class="btn btn-danger btn-sm float-left"><i class="fa fa-trash-o" aria-hidden="true"></i> delete</button>
                     </div>
                   </div>`
-        );
-      }
-    });
-  }
+      );
+    },
+  });
+
   $("#search").removeClass("error");
 }
 
